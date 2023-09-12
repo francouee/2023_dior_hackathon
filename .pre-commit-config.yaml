@@ -1,0 +1,30 @@
+## WHY USE IT 
+# A pre-commit hook allows you to automatically check and clean your code.
+# The following instructions will be automatically executed when committing changes to git
+
+## HOW TO USE IT
+# Install the pre-commit package (and the hooks): just run `pip install -r requirement-dev.txt`
+# Add repos or hooks to get more instructions executed
+# run the `pre-commit install` command
+# run the `pre-commit run` command to apply the pre-commit to your files
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+    -   id: check-added-large-files
+    -   id: check-merge-conflict
+    -   id: detect-private-key
+-   repo: local
+    hooks:
+      - id: flake8
+        name: flake8
+        entry: cd universe_recommendation && flake8
+        language: system
+-   repo: https://github.com/python-poetry/poetry
+    rev: 1.5.1
+    hooks:
+      - id: poetry-check # Checking that the poetry configuration is not brok en
+      - id: poetry-lock # Checking that the lock exists and is up to date
+      - id: poetry-export # Exporting dependencies in a requirements file
+        args: ["--without-hashes", "-f", "requirements.txt", "-o", "requirements.txt"]
